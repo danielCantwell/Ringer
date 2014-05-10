@@ -17,7 +17,7 @@ public class Ball {
     private Vector2 velocity;
     private Vector2 acceleration;
 
-    private final float ACC = 0;
+    private final float ACC = 1;
 
     // size
     private float width;
@@ -36,7 +36,7 @@ public class Ball {
         this.height = 30;
         position = new Vector2(200, 300);
 
-        velocity = new Vector2(0, 0);
+        velocity = new Vector2(0, 10);
         acceleration = new Vector2(0, ACC);
 
         value = Math.round(100 / width);

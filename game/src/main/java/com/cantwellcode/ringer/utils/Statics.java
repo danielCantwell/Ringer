@@ -5,5 +5,5 @@ package com.cantwellcode.ringer.utils;
  */
 public abstract class Statics {
 
-    public static final int GROUND_POS = 400;
+    public static final int GROUND_POS = 1800;
 }

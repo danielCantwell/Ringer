@@ -88,7 +88,6 @@ public class GameView extends SurfaceView implements SurfaceHolder.Callback {
     }
 
     public void setup(Game game) {
-
         mGame = game;
     }
 
@@ -139,7 +138,6 @@ public class GameView extends SurfaceView implements SurfaceHolder.Callback {
     }
 
     private void drawRunning(Canvas canvas) {
-
         canvas.drawText("RUNNING", getWidth() / 3, getHeight() / 3, paint);
         mGame.drawObjects(canvas);
     }

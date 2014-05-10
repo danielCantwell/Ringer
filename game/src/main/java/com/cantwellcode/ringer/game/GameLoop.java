@@ -37,10 +37,11 @@ public class GameLoop extends Thread {
             startTime = System.currentTimeMillis();
             try {
                 c = surfaceHolder.lockCanvas();
-                synchronized (gameView.getHolder()) {
+                synchronized (surfaceHolder) {
                     /* Update Graphics */
                     gameView.update();
-                    gameView.draw(c);
+                    gameView.postInvalidate();
+                    //gameView.draw(c);
                 }
             } finally {
                 if (c != null) {

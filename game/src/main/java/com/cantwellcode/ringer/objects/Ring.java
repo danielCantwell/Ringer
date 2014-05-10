@@ -16,9 +16,9 @@ public class Ring {
 
     // size
     private float x;
-    private final float y = 300;
-    private float insideRadius = 80;
-    private float outsideRadius = 100;
+    private final float y = 1400;
+    private float insideRadius = 100;
+    private float outsideRadius = 150;
     private final float maxRadius;
     private final float minRadius;
 
@@ -34,8 +34,9 @@ public class Ring {
         minRadius = 100;
 
         paint = new Paint();
-        paint.setStrokeWidth(5);
+        paint.setStrokeWidth(10);
         paint.setColor(Color.BLUE);
+        paint.setTextSize(48);
     }
 
     public void update() {
@@ -43,8 +44,13 @@ public class Ring {
     }
 
     public void draw(Canvas canvas) {
-        canvas.drawOval(new RectF(x, y, 20, x + insideRadius), paint);
-        canvas.drawOval(new RectF(x, y, 20, x + outsideRadius), paint);
+        canvas.drawText("RING", x, y, paint);
+        paint.setColor(Color.DKGRAY);
+        canvas.drawCircle(x, y, outsideRadius, paint);
+        paint.setColor(Color.BLUE);
+        canvas.drawCircle(x, y, insideRadius, paint);
+        //canvas.drawOval(new RectF(x, y, 20, x + insideRadius), paint);
+        //canvas.drawOval(new RectF(x, y, 20, x + outsideRadius), paint);
     }
 
     public synchronized void onTouch(MotionEvent event) {
@@ -64,7 +70,9 @@ public class Ring {
                 final float dx = touchX - mLastTouchX;
                 final float dy = touchY - mLastTouchY;
 
-                x += dx;
+                if (!((dx < 0 && (x - outsideRadius < 10)) || (dx > 0 && (x + outsideRadius > 1060)))) {
+                    x += dx;
+                }
                 // scale radius with dy
 
                 mLastTouchX = touchX;

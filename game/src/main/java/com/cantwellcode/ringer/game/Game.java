@@ -1,13 +1,18 @@
 package com.cantwellcode.ringer.game;
 
+import android.graphics.Bitmap;
 import android.graphics.Canvas;
+import android.graphics.Color;
+import android.graphics.Paint;
 import android.view.MotionEvent;
 
 import com.cantwellcode.ringer.objects.Ball;
 import com.cantwellcode.ringer.objects.Ring;
+import com.cantwellcode.ringer.utils.Statics;
 
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.Iterator;
 import java.util.List;
 
 /**
@@ -31,10 +36,14 @@ public class Game {
 
     private int ballsNeeded = 5;
 
+    private Paint paint;
+
     public Game(FullscreenActivity fullscreenActivity) {
         balls = Collections.synchronizedList(new ArrayList<Ball>());
         mScoreKeeper = fullscreenActivity;
         ring = new Ring();
+
+        paint = new Paint();
     }
 
     public void createBall() {
@@ -52,7 +61,8 @@ public class Game {
 
         /* Update balls */
         synchronized (balls) {
-            for (Ball ball : balls) {
+            for (int i = 0; i < balls.size(); i++) {
+                Ball ball = balls.get(i);
                 ball.update();
             /* Check ground collisions */
                 if (ball.groundCollision()) {
@@ -66,6 +76,7 @@ public class Game {
                 }
             }
         }
+
 
 
         /* Update Score */
@@ -82,6 +93,14 @@ public class Game {
                 ball.draw(canvas);
             }
         }
+
+        // draw ground
+        paint.setColor(Color.RED);
+        paint.setStrokeWidth(3);
+        canvas.drawRect(0, Statics.GROUND_POS, 1080, 1920, paint);
+        paint.setColor(Color.YELLOW);
+        paint.setStrokeWidth(0);
+        canvas.drawRect(5, Statics.GROUND_POS + 5, 1075, 1915, paint);
     }
 
     public void onTouch(MotionEvent event) {
