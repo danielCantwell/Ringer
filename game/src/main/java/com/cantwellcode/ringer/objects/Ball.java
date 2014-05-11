@@ -7,6 +7,8 @@ import android.graphics.Paint;
 import com.cantwellcode.ringer.utils.Statics;
 import com.cantwellcode.ringer.utils.Vector2;
 
+import java.util.Random;
+
 /**
  * Created by Daniel on 5/9/2014.
  */
@@ -17,11 +19,15 @@ public class Ball {
     private Vector2 velocity;
     private Vector2 acceleration;
 
-    private final float ACC = 1;
+    private final float ACC = 0;
 
     // size
-    private float width;
-    private float height;
+    private int width;
+    private int height;
+    private int minWidth = 35;
+    private int maxWidth = 130;
+    private int minHeight = 35;
+    private int maxHeight = 130;
 
     // properties
     private int value;
@@ -32,14 +38,19 @@ public class Ball {
      * Constructor for a Ball object
      */
     public Ball() {
-        this.width = 20;
-        this.height = 30;
-        position = new Vector2(200, 300);
+        Random randWidth = new Random();
+        width = randWidth.nextInt(maxWidth - minWidth + 1) + minWidth;
+        Random randHeight = new Random();
+        height = randHeight.nextInt(maxHeight - minHeight + 1) + minHeight;
+
+        Random randX = new Random();
+        int x = randX.nextInt((1080 - width / 2 - 300) - (width / 2 + 80) + 1) + (width / 2 + 200);
+        position = new Vector2(x, height + 50);
 
         velocity = new Vector2(0, 10);
         acceleration = new Vector2(0, ACC);
 
-        value = Math.round(100 / width);
+        value = Math.round(width / 10);
 
         paint = new Paint();
         paint.setColor(Color.GREEN);

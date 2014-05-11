@@ -29,7 +29,7 @@ public class Game {
     private ScoreKeeper mScoreKeeper;
 
     private int mTime = 0;
-    private int mPoints = 1000;
+    private int mPoints = 200;
 
     private Ring ring;
     private List<Ball> balls;
@@ -55,7 +55,7 @@ public class Game {
         ring.update();
 
         /* Create Balls if Needed */
-        if (balls.size() < ballsNeeded) {
+        if (balls.size() < ballsNeeded && mTime % 50 == 0) {
             createBall();
         }
 
@@ -70,7 +70,7 @@ public class Game {
                     balls.remove(ball);
                 }
             /* Check collision with ring */
-                if (ballCollidesWithRing(ball)) {
+                else if (ballCollidesWithRing(ball)) {
                     mPoints -= ball.getValue();
                     balls.remove(ball);
                 }
@@ -81,7 +81,7 @@ public class Game {
 
         /* Update Score */
         mTime++;
-        mScoreKeeper.updateTime(mTime / 15); // FPS = 15
+        mScoreKeeper.updateTime(mTime / 15); // FPS = 30
         mScoreKeeper.updatePoints(mPoints);
     }
 
